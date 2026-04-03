@@ -433,34 +433,55 @@
                         <div class="form-group"><label>FECHA PROXIMO ASCENSO</label><input type="date" id="fecha-prox-ascenso"></div>
                         <div class="form-group"><label>FECHA TRASLADO NUEVA NOMENCLATURA <span class="req-star">*</span></label><input type="date" id="fecha-traslado-nueva" required></div>
 
-                        <h3 class="section-title">📋 Novedades y Estado Actual</h3>
+                      <h3 class="section-title">📋 Novedades y Estado Actual</h3>
                         <div class="form-group"><label>CARGO DESIGNADO</label><input type="text" id="cargo-designado" list="dl-cargo" class="memoria-input" data-list="dl-cargo"><datalist id="dl-cargo"></datalist></div>
                         <div class="form-group"><label>PASE DNATH</label><input type="text" id="pase-dnath" list="dl-pase" class="memoria-input" data-list="dl-pase"><datalist id="dl-pase"></datalist></div>
-                        <div class="form-group"><label>NOVEDAD <span class="req-star">*</span></label><select id="novedad" required><option value="">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option></select></div>
-                        <div class="form-group"><label>NOVEDAD 1</label><select id="novedad1"><option value="">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option></select></div>
-                        <div class="form-group"><label>DETALLE</label><input type="text" id="detalle" list="dl-detalle" class="memoria-input" data-list="dl-detalle"><datalist id="dl-detalle"></datalist></div>
-                        <div class="form-group"><label>DOCUMENTO / QUIEN SUSCRIBE</label><input type="text" id="documento" list="dl-documento" class="memoria-input" data-list="dl-documento"><datalist id="dl-documento"></datalist></div>
-                        <div class="form-group"><label>DESDE</label>
-                            <select id="tipo-desde" onchange="toggleFechas(this)"><option value="NINGUNA">NINGUNA</option><option value="REGISTRAR">REGISTRAR FECHA</option></select>
-                            <div class="flex-row" style="margin-top: 8px;"><input type="date" id="fecha-desde" class="hidden" onchange="calcularHasta(this)"><input type="number" id="dias-desde" class="hidden" placeholder="Nº días" oninput="calcularHasta(this)" min="1" style="width: 120px;"></div>
-                        </div>
-						<div class="form-group" style="grid-column: 1 / -1; background: #fdfefe; padding: 15px; border: 1px dashed #8e44ad; border-radius: 8px;">
-                            <h4 style="margin-top:0; margin-bottom:15px; color:#8e44ad;">🧮 Complementos Novedad Secundaria</h4>
-                            <div class="form-grid" style="margin-top:0;">
-                                <div class="form-group"><label>DETALLE 2</label><input type="text" id="detalle2" style="text-transform:uppercase;"></div>
-                                <div class="form-group"><label>DOCUMENTO 2 / SUSCRIBE</label><input type="text" id="documento2" style="text-transform:uppercase;"></div>
-                                <div class="form-group"><label>DESDE 2</label>
-                                    <select id="tipo-desde2" onchange="toggleFechas2(this)"><option value="NINGUNA">NINGUNA</option><option value="REGISTRAR">REGISTRAR FECHA</option></select>
-                                    <div class="flex-row" style="margin-top: 8px;"><input type="date" id="fecha-desde2" class="hidden" onchange="calcularHasta2(this)"><input type="number" id="dias-desde2" class="hidden" placeholder="Nº días" oninput="calcularHasta2(this)" min="1" style="width: 120px;"></div>
+                        <div class="form-group"><label>SERVIDOR POLICIAL ESTA EN LA DIRECCION O UNIDAD <span class="req-star">*</span></label><select id="servidor-ubicacion" required><option value="">Seleccione...</option><option value="EN LA UNIDAD">EN LA UNIDAD</option><option value="FUERA DE LA UNIDAD">FUERA DE LA UNIDAD</option></select></div>
+
+                        <div class="contenedor-novedades" style="grid-column: 1 / -1; border: 2px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin-top: 10px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                            <div class="header-novedad" style="background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 15px 20px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;" onclick="togglePanelNovedad(this)">
+                                <span style="font-size: 15px;">🔴 GESTIONAR NOVEDAD PRINCIPAL</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <span class="resumen-nov" style="font-size: 11px; background: white; color: #c0392b; padding: 4px 12px; border-radius: 12px; font-weight:900; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">NINGUNA</span>
+                                    <span style="font-size: 12px;">▼</span>
                                 </div>
-                                <div class="form-group"><label>HASTA 2</label><div id="hasta-ninguna2" style="font-weight: bold; color: #7f8c8d; padding: 10px 0;">NINGUNA</div><input type="date" id="fecha-hasta2" class="hidden"></div>
-                                <div class="form-group"><label>ESTADO 2</label><select id="estado2" class="readonly-field" disabled><option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option></select></div>
+                            </div>
+                            <div class="panel-novedad" style="display: none; padding: 25px; background: #fff5f5; border-bottom: 2px solid #e2e8f0;">
+                                <div class="form-grid" style="margin-top: 0;">
+                                    <div class="form-group"><label style="color:#c0392b;">NOVEDAD PRINCIPAL <span class="req-star">*</span></label><select id="novedad" onchange="actualizarResumenNov(this)" style="border-color:#f1948a; border-width: 2px;" required><option value="">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option></select></div>
+                                    <div class="form-group"><label style="color:#c0392b;">DETALLE</label><input type="text" id="detalle" list="dl-detalle" class="memoria-input" data-list="dl-detalle" style="border-color:#f1948a; text-transform:uppercase;"><datalist id="dl-detalle"></datalist></div>
+                                    <div class="form-group"><label style="color:#c0392b;">DOCUMENTO / QUIEN SUSCRIBE</label><input type="text" id="documento" list="dl-documento" class="memoria-input" data-list="dl-documento" style="border-color:#f1948a; text-transform:uppercase;"><datalist id="dl-documento"></datalist></div>
+                                    <div class="form-group"><label style="color:#c0392b;">DESDE</label>
+                                        <select id="tipo-desde" onchange="toggleFechas(this)" style="border-color:#f1948a;"><option value="NINGUNA">NINGUNA</option><option value="REGISTRAR">REGISTRAR FECHA</option></select>
+                                        <div class="flex-row" style="margin-top: 8px;"><input type="date" id="fecha-desde" class="hidden" onchange="calcularHasta(this)" style="border-color:#f1948a;"><input type="number" id="dias-desde" class="hidden" placeholder="Nº días" oninput="calcularHasta(this)" min="1" style="width: 120px; border-color:#f1948a;"></div>
+                                    </div>
+                                    <div class="form-group"><label style="color:#c0392b;">HASTA</label><div id="hasta-ninguna" style="font-weight: bold; color: #c0392b; padding: 10px 0; background: rgba(231, 76, 60, 0.1); border-radius: 4px; text-align: center; border: 1px dashed #e74c3c;">NINGUNA</div><input type="date" id="fecha-hasta" class="hidden" style="border-color:#f1948a;"></div>
+                                    <div class="form-group"><label style="color:#c0392b;">NUEVOS REQUERIMIENTOS/ ESTADOS DE TRASLADOS</label><select id="nuevos-requerimientos" class="readonly-field" disabled style="border-color:#f1948a;"><option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option></select></div>
+                                </div>
+                            </div>
+
+                            <div class="header-novedad" style="background: linear-gradient(90deg, #8e44ad 0%, #732d91 100%); color: white; padding: 15px 20px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;" onclick="togglePanelNovedad(this)">
+                                <span style="font-size: 15px;">🟣 GESTIONAR NOVEDAD SECUNDARIA</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <span class="resumen-nov" style="font-size: 11px; background: white; color: #732d91; padding: 4px 12px; border-radius: 12px; font-weight:900; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">NINGUNA</span>
+                                    <span style="font-size: 12px;">▼</span>
+                                </div>
+                            </div>
+                            <div class="panel-novedad" style="display: none; padding: 25px; background: #faf5ff;">
+                                <div class="form-grid" style="margin-top: 0;">
+                                    <div class="form-group"><label style="color:#732d91;">NOVEDAD SECUNDARIA</label><select id="novedad1" onchange="actualizarResumenNov(this)" style="border-color:#d7bde2; border-width: 2px;"><option value="">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option></select></div>
+                                    <div class="form-group"><label style="color:#732d91;">DETALLE 2</label><input type="text" id="detalle2" style="text-transform:uppercase; border-color:#d7bde2;"></div>
+                                    <div class="form-group"><label style="color:#732d91;">DOCUMENTO 2 / SUSCRIBE</label><input type="text" id="documento2" style="text-transform:uppercase; border-color:#d7bde2;"></div>
+                                    <div class="form-group"><label style="color:#732d91;">DESDE 2</label>
+                                        <select id="tipo-desde2" onchange="toggleFechas2(this)" style="border-color:#d7bde2;"><option value="NINGUNA">NINGUNA</option><option value="REGISTRAR">REGISTRAR FECHA</option></select>
+                                        <div class="flex-row" style="margin-top: 8px;"><input type="date" id="fecha-desde2" class="hidden" onchange="calcularHasta2(this)" style="border-color:#d7bde2;"><input type="number" id="dias-desde2" class="hidden" placeholder="Nº días" oninput="calcularHasta2(this)" min="1" style="width: 120px; border-color:#d7bde2;"></div>
+                                    </div>
+                                    <div class="form-group"><label style="color:#732d91;">HASTA 2</label><div id="hasta-ninguna2" style="font-weight: bold; color: #732d91; padding: 10px 0; background: rgba(142, 68, 173, 0.1); border-radius: 4px; text-align: center; border: 1px dashed #8e44ad;">NINGUNA</div><input type="date" id="fecha-hasta2" class="hidden" style="border-color:#d7bde2;"></div>
+                                    <div class="form-group"><label style="color:#732d91;">ESTADO 2</label><select id="estado2" class="readonly-field" disabled style="border-color:#d7bde2;"><option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option></select></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group"><label>HASTA</label><div id="hasta-ninguna" style="font-weight: bold; color: #7f8c8d; padding: 10px 0;">NINGUNA</div><input type="date" id="fecha-hasta" class="hidden"></div>
-                        <div class="form-group"><label>NUEVOS REQUERIMIENTOS/ ESTADOS DE TRASLADOS</label><select id="nuevos-requerimientos" class="readonly-field" disabled><option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option></select></div>
-                        <div class="form-group"><label>SERVIDOR POLICIAL ESTA EN LA DIRECCION O UNIDAD <span class="req-star">*</span></label><select id="servidor-ubicacion" required><option value="">Seleccione...</option><option value="EN LA UNIDAD">EN LA UNIDAD</option><option value="FUERA DE LA UNIDAD">FUERA DE LA UNIDAD</option></select></div>
-                        
+						
                         <h3 class="section-title">⚙️ Gestión</h3>
                         <div class="form-group"><label>GRUPOS DE TRABAJO</label><input type="text" id="grupos-trabajo" placeholder="Registro manual"></div>
                         <div class="form-group"><label id="label-fin-semana">FIN DE SEMANA CALCULANDO...</label><select id="fin-semana"><option value="">Seleccione...</option><option value="FRANCO">FRANCO</option><option value="QUEDADA">QUEDADA</option><option value="FUERA DE LA UNIDAD">FUERA DE LA UNIDAD</option></select></div>
@@ -1189,7 +1210,33 @@
         function calcularHasta(el) { let prefix = el && el.id && el.id.startsWith('ed-') ? 'ed-' : ''; let fD = document.getElementById(prefix + 'fecha-desde').value; let d = parseInt(document.getElementById(prefix + 'dias-desde').value); let fH = document.getElementById(prefix + 'fecha-hasta'); if (fD && !isNaN(d) && d > 0) { let obj = new Date(fD); obj.setDate(obj.getDate() + (d - 1)); fH.value = obj.toISOString().split('T')[0]; fH.setAttribute('readonly', true); fH.classList.add('readonly-field'); } else { fH.removeAttribute('readonly'); fH.classList.remove('readonly-field'); } evaluarVigenciaTemporal(prefix); }
         function evaluarVigenciaTemporal(prefix) { let inputHasta = document.getElementById(prefix + 'fecha-hasta'); let inputEstado = document.getElementById(prefix + 'nuevos-requerimientos'); if(inputHasta && inputHasta.value && inputEstado) { const fechaLimite = new Date(inputHasta.value + "T00:00:00"); const fechaActual = new Date(); fechaActual.setHours(0,0,0,0); if(fechaLimite >= fechaActual) { inputEstado.value = "VIGENTE"; inputEstado.style.backgroundColor = "#d4edda"; inputEstado.style.color = "#155724"; } else { inputEstado.value = "FENECIDO"; inputEstado.style.backgroundColor = "#f8d7da"; inputEstado.style.color = "#721c24"; } } else if (inputEstado) { inputEstado.style.backgroundColor = ""; inputEstado.style.color = ""; } }
         document.addEventListener('change', function(e) { if(e.target.id === 'fecha-desde' || e.target.id === 'fecha-hasta') evaluarVigenciaTemporal(''); if(e.target.id === 'ed-fecha-desde' || e.target.id === 'ed-fecha-hasta') evaluarVigenciaTemporal('ed-'); });
+		
+		// ==========================================
+        // 💫 ANIMACIÓN DE PANELES DE NOVEDADES
+        // ==========================================
+        function togglePanelNovedad(el) {
+            let panel = el.nextElementSibling;
+            let flecha = el.querySelector('div span:last-child');
+            if (panel.style.display === "none" || !panel.style.display) {
+                panel.style.display = "block";
+                flecha.innerText = "▲";
+                el.style.opacity = "0.9";
+            } else {
+                panel.style.display = "none";
+                flecha.innerText = "▼";
+                el.style.opacity = "1";
+            }
+        }
 
+        function actualizarResumenNov(el) {
+            let val = el.value.trim() || "NINGUNA";
+            let header = el.closest('.panel-novedad').previousElementSibling;
+            if (header) {
+                let resumen = header.querySelector('.resumen-nov');
+                if (resumen) resumen.innerText = val.length > 22 ? val.substring(0, 22) + "..." : val;
+            }
+        }
+	
         // 💉 INCISIÓN LÁSER: RESTRICCIÓN DE VISIBILIDAD DE FICHA POLICIAL
         function ejecutarFiltroBI() {
             let uniPermitida = localStorage.getItem('unidad') || "TODAS"; 
@@ -1234,6 +1281,8 @@
             let tipoDesde2 = document.getElementById('vt-tipo-desde2'); 
             if (tipoDesde2) { tipoDesde2.value = (fDesdeVal2 || fHastaVal2) ? "REGISTRAR" : "NINGUNA"; toggleFechas2(tipoDesde2); }
             s('estado2', d[49]);
+			let selNovVt = document.getElementById('vt-novedad'); if(selNovVt) actualizarResumenNov(selNovVt);
+        	let selNov1Vt = document.getElementById('vt-novedad1'); if(selNov1Vt) actualizarResumenNov(selNov1Vt);
             document.getElementById('bi-formulario-completo').classList.remove('hidden');
         }
 
@@ -1296,6 +1345,8 @@
             let tipoDesde2 = document.getElementById('ed-tipo-desde2'); 
             if (tipoDesde2) { tipoDesde2.value = (fDesdeVal2 || fHastaVal2) ? "REGISTRAR" : "NINGUNA"; toggleFechas2(tipoDesde2); }
             s('estado2', d[49]);
+			let selNovEd = document.getElementById('ed-novedad'); if(selNovEd) actualizarResumenNov(selNovEd);
+        	let selNov1Ed = document.getElementById('ed-novedad1'); if(selNov1Ed) actualizarResumenNov(selNov1Ed);
             cont.classList.remove('hidden');
         }
 
