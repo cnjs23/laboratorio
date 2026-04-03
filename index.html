@@ -997,29 +997,49 @@
 
             for (let i = 0; i < datosMatriz.length; i++) {
                 let d = datosMatriz[i].datosEncontrados, filaReal = datosMatriz[i].filaReal, hojaOrigen = datosMatriz[i].hojaOrigen;
-                let baseId = 'sys-' + hojaOrigen + '-' + filaReal; 
-                let strD = formatearFechaParaHTML(d[22]); let strH = formatearFechaParaHTML(d[23]);
-                let debeAlertar = false; let diasRestantes = 0;
+                
+                // 🧠 LÓGICA DE DOBLE RADAR DE NOVEDADES
+                function evaluarNovedad(idxDesde, idxHasta, numPanel, nombreNov) {
+                    let strD = formatearFechaParaHTML(d[idxDesde]); let strH = formatearFechaParaHTML(d[idxHasta]);
+                    let debeAlertar = false; let diasRestantes = 0;
 
-                if(strD && strH && strD.includes("-") && strH.includes("-")) {
-                    let fD = new Date(strD + "T00:00:00"); let fH = new Date(strH + "T00:00:00");
-                    if(!isNaN(fD) && !isNaN(fH)) {
-                        let dTot = Math.round((fH.getTime() - fD.getTime()) / 86400000) + 1;
-                        diasRestantes = Math.round((fH.getTime() - hoy.getTime()) / 86400000);
-                        if(dTot >= 30 && diasRestantes <= 6 && diasRestantes >= 0) debeAlertar = true;
-                        if(dTot < 30 && diasRestantes <= 1 && diasRestantes >= 0) debeAlertar = true;
-                        if(diasRestantes < 0) debeAlertar = true;
+                    if(strD && strH && strD.includes("-") && strH.includes("-")) {
+                        let fD = new Date(strD + "T00:00:00"); let fH = new Date(strH + "T00:00:00");
+                        if(!isNaN(fD) && !isNaN(fH)) {
+                            let dTot = Math.round((fH.getTime() - fD.getTime()) / 86400000) + 1;
+                            diasRestantes = Math.round((fH.getTime() - hoy.getTime()) / 86400000);
+                            
+                            // Regla 1: Novedades largas (+30 días) avisan a los 6 días
+                            if(dTot >= 30 && diasRestantes <= 6 && diasRestantes >= 0) debeAlertar = true;
+                            // Regla 2: Novedades cortas avisan 1 día antes
+                            if(dTot < 30 && diasRestantes <= 1 && diasRestantes >= 0) debeAlertar = true;
+                            // Regla 3: Si ya pasó la fecha
+                            if(diasRestantes < 0) debeAlertar = true;
+                        }
+                    }
+
+                    if(debeAlertar) {
+                        // Creamos un ID único para la Novedad 1 y otro para la Novedad 2
+                        let baseId = 'sys-' + hojaOrigen + '-' + filaReal + '-' + numPanel; 
+                        idsValidos.add(baseId); 
+                        
+                        if(!eliminadasSys.includes(baseId)) {
+                            let eStr = diasRestantes < 0 ? "⚠️ *FENECIÓ*" : `⏳ VENCE EN *${diasRestantes} DÍA(S)*`;
+                            if (diasRestantes === 0) eStr = "🚨 *VENCE HOY*";
+                            
+                            let icono = numPanel === 1 ? "🔴" : "🟣";
+                            let txtNov = nombreNov && nombreNov !== "NINGUNA" ? nombreNov : "S/D";
+                            let pRead = alertasActivas[baseId] ? alertasActivas[baseId].leido : false;
+                            
+                            alertasActivas[baseId] = { id: baseId, baseId: baseId, fecha: new Date().toLocaleDateString('es-EC'), remitente: "SISTEMA DINIC 🤖", texto: `${icono} Novedad de *${d[4]}* (CI: ${d[2]}) - ${eStr}.\\nTipo: ${txtNov} | Límite: ${strH}`, leido: pRead, tipo: "RECIBIDO", destinatario: "YO", isSys: true };
+                        }
                     }
                 }
-                if(debeAlertar) {
-                    idsValidos.add(baseId); 
-                    if(!eliminadasSys.includes(baseId)) {
-                        let eStr = diasRestantes < 0 ? "⚠️ *FENECIÓ*" : `⏳ VENCE EN *${diasRestantes} DÍA(S)*`;
-                        if (diasRestantes === 0) eStr = "🚨 *VENCE HOY*";
-                        let pRead = alertasActivas[baseId] ? alertasActivas[baseId].leido : false;
-                        alertasActivas[baseId] = { id: baseId, baseId: baseId, fecha: new Date().toLocaleDateString('es-EC'), remitente: "SISTEMA DINIC 🤖", texto: `Novedad de *${d[4]}* (CI: ${d[2]}) - ${eStr}.\\nFecha Límite: ${strH}`, leido: pRead, tipo: "RECIBIDO", destinatario: "YO", isSys: true };
-                    }
-                }
+
+                // Disparamos el radar en los índices de la Novedad 1
+                evaluarNovedad(22, 23, 1, d[18]);
+                // Disparamos el radar en los índices de la Novedad 2
+                evaluarNovedad(47, 48, 2, d[19]);
             }
 
             if(isGlobalScan) { for(let key in alertasActivas) { if(!idsValidos.has(key)) { delete alertasActivas[key]; } } }
