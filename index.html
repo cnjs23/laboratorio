@@ -1253,10 +1253,24 @@
             .then(res => res.json()).then(r => {
                 if(r.status === "éxito") {
                     msj.innerHTML = `✅ Filtro aplicado: <span style="color:var(--danger-color);">${r.resultados.length}</span> servidores encontrados.`; window.resultadosBITemporal = r.resultados; let tb = document.getElementById('tbody-bi'); tb.innerHTML = "";
-                    r.resultados.forEach((res, i) => { 
+                   	r.resultados.forEach((res, i) => { 
                         let d = res.datosEncontrados; 
-                        let badge = d[18] && d[18] !== "NINGUNA" && d[18].trim() !== "" ? `<span style="color:#e74c3c; font-weight:bold; font-size:11px;">${d[18]}</span>` : `<span style="color:#27ae60; font-weight:bold; font-size:11px;">SIN NOVEDAD</span>`; 
                         
+                        // 🧠 LÓGICA DE DOBLE ETIQUETA VISUAL
+                        let n1 = (d[18] && d[18] !== "NINGUNA" && d[18].trim() !== "") ? d[18] : null;
+                        let n2 = (d[19] && d[19] !== "NINGUNA" && d[19].trim() !== "") ? d[19] : null;
+                        let badge = "";
+                        
+                        if (n1 && n2) {
+                            badge = `<span style="color:#c0392b; font-weight:bold; font-size:11px;">🔴 ${n1}</span><br><span style="color:#8e44ad; font-weight:bold; font-size:11px; margin-top:3px; display:inline-block;">🟣 ${n2}</span>`;
+                        } else if (n1) {
+                            badge = `<span style="color:#c0392b; font-weight:bold; font-size:11px;">🔴 ${n1}</span>`;
+                        } else if (n2) {
+                            badge = `<span style="color:#8e44ad; font-weight:bold; font-size:11px;">🟣 ${n2}</span>`;
+                        } else {
+                            badge = `<span style="color:#27ae60; font-weight:bold; font-size:11px;">✔️ SIN NOVEDAD</span>`;
+                        }
+
                         let btnFicha = (rolActivo === "ADMIN" || rolActivo === "VISITANTE SENIOR") ? `<button class="action-btn btn-bi" onclick="mostrarFichaBI(${i})">👁️ Ficha</button> ` : "";
                         
                         tb.innerHTML += `<tr><td><input type="checkbox" class="checkbox-lote-bi" value="${i}"></td><td><strong>${res.hojaOrigen}</strong></td><td>${d[3]}</td><td>${d[4]}<br><span style="font-size:11px; color:#7f8c8d;">CC: ${d[2]}</span></td><td>${badge}</td><td>${btnFicha}<button class="action-btn btn-pass" onclick="mostrarFormularioCompletoLectura(${i})">📋 Ver Todo</button></td></tr>`; 
@@ -1304,11 +1318,37 @@
             .then(res => res.json()).then(r => { renderTablaActualizar(r, msj); if(r.status === "éxito") { calcularAlertasSilenciosas(r.resultados, false); cargarMisMensajes(); } }).catch(e => msj.innerHTML = "❌ Error").finally(() => { btn.innerText = "🔍 APLICAR FILTROS Y BUSCAR"; btn.disabled = false; });
         }
 
-        function renderTablaActualizar(r, msj) {
+       function renderTablaActualizar(r, msj) {
             if(r.status === "éxito") {
-                msj.innerHTML = `⚠️ ${r.resultados.length} coincidencias para actualización:`; window.resTemp = r.resultados; let h = ``;
-                r.resultados.forEach((x, i) => { let d = x.datosEncontrados; let hr = x.hojaOrigen; h += `<tr><td><input type="checkbox" class="checkbox-lote" value="${i}"></td><td><strong>${hr}</strong></td><td>${d[3]}</td><td>${d[4]}</td><td>${d[18]}</td><td><button class="action-btn btn-success" onclick="prepararEdicionIndividual(${i})">📝 Editar</button> <button class="action-btn btn-delete" onclick="eliminarServidor('${hr}', ${x.filaReal})">🗑️ Eliminar</button></td></tr>`; });
-                document.getElementById('tbody-upd').innerHTML = h; document.getElementById('upd-resultados-tabla').classList.remove('hidden');
+                msj.innerHTML = `⚠️ ${r.resultados.length} coincidencias para actualización:`; 
+                window.resTemp = r.resultados; 
+                let h = ``;
+                
+                // --- INICIO DEL CÓDIGO NUEVO (PASO 2) ---
+                r.resultados.forEach((x, i) => { 
+                    let d = x.datosEncontrados; let hr = x.hojaOrigen; 
+                    
+                    // 🧠 LÓGICA DE DOBLE ETIQUETA VISUAL (ACTUALIZAR)
+                    let n1 = (d[18] && d[18] !== "NINGUNA" && d[18].trim() !== "") ? d[18] : null;
+                    let n2 = (d[19] && d[19] !== "NINGUNA" && d[19].trim() !== "") ? d[19] : null;
+                    let novText = "";
+                    
+                    if(n1 && n2) {
+                        novText = `<span style="color:#c0392b; font-weight:bold; font-size:11px;">🔴 ${n1}</span><br><span style="color:#8e44ad; font-weight:bold; font-size:11px; margin-top:3px; display:inline-block;">🟣 ${n2}</span>`;
+                    } else if(n1) {
+                        novText = `<span style="color:#c0392b; font-weight:bold; font-size:11px;">🔴 ${n1}</span>`;
+                    } else if(n2) {
+                        novText = `<span style="color:#8e44ad; font-weight:bold; font-size:11px;">🟣 ${n2}</span>`;
+                    } else {
+                        novText = `<span style="color:#7f8c8d; font-weight:bold; font-size:11px;">NINGUNA</span>`;
+                    }
+
+                    h += `<tr><td><input type="checkbox" class="checkbox-lote" value="${i}"></td><td><strong>${hr}</strong></td><td>${d[3]}</td><td>${d[4]}</td><td>${novText}</td><td><button class="action-btn btn-success" onclick="prepararEdicionIndividual(${i})">📝 Editar</button> <button class="action-btn btn-delete" onclick="eliminarServidor('${hr}', ${x.filaReal})">🗑️ Eliminar</button></td></tr>`; 
+                });
+                // --- FIN DEL CÓDIGO NUEVO ---
+
+                document.getElementById('tbody-upd').innerHTML = h; 
+                document.getElementById('upd-resultados-tabla').classList.remove('hidden');
             } else msj.innerHTML = `❌ ${r.message}`;
         }
 
