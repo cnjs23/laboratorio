@@ -361,7 +361,7 @@
                         <h3 style="color:var(--secondary-color); margin-top:0;">⚡ Actualizar Lote (<span id="txt-lote-num">0</span> serv.)</h3>
                         <div class="form-group" style="margin-bottom:15px;">
                             <label>¿QUÉ CAMPO DESEAS ACTUALIZAR A TODOS?</label>
-                            <select id="lote-campo-select" onchange="mostrarInputLote(this.value)" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                           <select id="lote-campo-select" onchange="mostrarInputLote(this.value)" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
                                 <option value="">Selecciona el campo...</option>
                                 <option value="0">DIRECCIÓN-UNIDAD</option>
                                 <option value="5">ZONA DE POLICÍA</option>
@@ -378,8 +378,7 @@
                                 <option value="34">DETALLE PROM.</option>
                                 <option value="13">CARGO DESIGNADO</option>
                                 <option value="12">PASE DNATH</option>
-                                <option value="18">NOVEDAD PRINCIPAL</option>
-                                <option value="19">NOVEDAD SECUNDARIA</option>
+                                <option value="18_19">NOVEDADES (ASIGNACIÓN INTELIGENTE)</option>
                                 <option value="25">ESTÁ EN LA DIRECCIÓN O UNIDAD</option>
                                 <option value="26">GRUPOS DE TRABAJO</option>
                                 <option value="27">FIN DE SEMANA</option>
@@ -1438,14 +1437,14 @@
         function abrirModalLote() { let checkboxes = document.querySelectorAll('.checkbox-lote:checked'); if(checkboxes.length === 0) return alert("Primero selecciona al menos a un servidor usando las casillas en la tabla de resultados."); document.getElementById('txt-lote-num').innerText = checkboxes.length; document.getElementById('modal-lote').classList.remove('hidden'); }
         function cerrarModalLote() { document.getElementById('modal-lote').classList.add('hidden'); document.getElementById('lote-campo-select').value = ""; document.getElementById('lote-input-container').innerHTML = ""; }
         
-	function mostrarInputLote(campoIndex) {
+		function mostrarInputLote(campoIndex) {
             let cont = document.getElementById('lote-input-container'); if (campoIndex === "") { cont.innerHTML = ""; return; } 
             let html = `<label style="color:var(--primary-color); font-weight:bold;">Ingresa los nuevos valores que se aplicarán a todos los seleccionados:</label><br><br>`;
             
-            // CIRUGÍA: SI ES NOVEDAD PRINCIPAL, PINTAMOS EL BLOQUE COMPLETO
-            if (campoIndex === "18") { 
+            // CIRUGÍA: NOVEDAD INTELIGENTE
+            if (campoIndex === "18_19") { 
                 html += `<div style="background:#f4f7fb; padding:15px; border-radius:8px; border:1px solid #c5d3e8;">
-                            <label style="font-size:12px; font-weight:bold; color:var(--primary-color);">NOVEDAD PRINCIPAL</label>
+                            <label style="font-size:12px; font-weight:bold; color:var(--primary-color);">REGISTRO DE NOVEDAD (AUTO-ASIGNABLE)</label>
                             <select id="lote-val-final" style="width:100%; padding:8px; margin-bottom:10px; border: 1px solid #ccc; border-radius: 4px;">
                                 <option value="NINGUNA">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option>`; 
                 let extra = localStorage.getItem('novedades_admin');
@@ -1477,24 +1476,19 @@
                                 <option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option>
                             </select>
                         </div>`;
-            } else if (campoIndex === "19") { 
-                html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="NINGUNA">NINGUNA</option><option value="APREHENSIÓN">APREHENSIÓN</option><option value="AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS">AUSENCIA INJUSTIFICADA HASTA POR VEINTICUATRO HORAS</option><option value="AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS">AUSENCIA INJUSTIFICADA MENOS DE 3 DÍAS</option><option value="AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS">AUSENCIA INJUSTIFICADA POR DOS DÍAS CONSECUTIVOS</option><option value="AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS">AUSENCIA INJUSTIFICADA POR MÁS DE 3 DÍAS</option><option value="COMISIÓN DE SERVICIOS AL EXTERIOR">COMISIÓN DE SERVICIOS AL EXTERIOR</option><option value="COMISIÓN DE SERVICIOS AL INTERIOR">COMISIÓN DE SERVICIOS AL INTERIOR</option><option value="TRASLADO OCASIONAL EN LA UNIDAD">TRASLADO OCASIONAL EN LA UNIDAD</option><option value="TRASLADO OCASIONAL FUERA DE LA UNIDAD">TRASLADO OCASIONAL FUERA DE LA UNIDAD</option><option value="CURSO">CURSO</option><option value="DETENCIÓN">DETENCIÓN</option><option value="FALLECIDO">FALLECIDO</option><option value="GESTACIÓN O EMBARAZO">GESTACIÓN O EMBARAZO</option><option value="HOSPITALIZACIÓN">HOSPITALIZACIÓN</option><option value="LACTANCIA">LACTANCIA</option><option value="VACACIONES">VACACIONES</option><option value="DESCANSO MÉDICO">DESCANSO MÉDICO</option><option value="LICENCIA SIN REMUNERACIÓN">LICENCIA SIN REMUNERACIÓN</option><option value="MATERNIDAD O PARTO">MATERNIDAD O PARTO</option><option value="PERMISO IMPUTABLE A VACACIONES">PERMISO IMPUTABLE A VACACIONES</option><option value="TRASLADO EVENTUAL EN LA UNIDAD">TRASLADO EVENTUAL EN LA UNIDAD</option><option value="TRASLADO EVENTUAL FUERA DE LA UNIDAD">TRASLADO EVENTUAL FUERA DE LA UNIDAD</option><option value="TRASLADO TEMPORAL EN LA UNIDAD">TRASLADO TEMPORAL EN LA UNIDAD</option><option value="TRASLADO TEMPORAL FUERA DE LA UNIDAD">TRASLADO TEMPORAL FUERA DE LA UNIDAD</option><option value="PERMISO">PERMISO</option><option value="FRANCO">FRANCO</option><option value="FÍSICAMENTE">FÍSICAMENTE</option><option value="LEGALIZADOS">LEGALIZADOS</option><option value="LICENCIA CON REMUNERACIÓN">LICENCIA CON REMUNERACIÓN</option>`; 
-                let extra = localStorage.getItem('novedades_admin');
-                if(extra) { let arr = extra.split('|').filter(x => x.trim() !== ""); arr.forEach(nov => { html += `<option value="${nov}">⭐ ${nov}</option>`; }); }
-                html += `</select>`;
             } else if (campoIndex === "25") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="EN LA UNIDAD">EN LA UNIDAD</option><option value="FUERA DE LA UNIDAD">FUERA DE LA UNIDAD</option></select>`; } else if (campoIndex === "27") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="FRANCO">FRANCO</option><option value="QUEDADA">QUEDADA</option><option value="FUERA DE LA UNIDAD">FUERA DE LA UNIDAD</option></select>`; } else if (campoIndex === "3") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="POLI">POLI</option><option value="CBOS">CBOS</option><option value="CBOP">CBOP</option><option value="SGOS">SGOS</option><option value="SGOP">SGOP</option><option value="SBOS">SBOS</option><option value="SBOP">SBOP</option><option value="SBOM">SBOM</option><option value="SBTE">SBTE</option><option value="TNTE">TNTE</option><option value="CPTN">CPTN</option><option value="MAYR">MAYR</option><option value="TCNL">TCNL</option><option value="CRNL">CRNL</option><option value="GRAD">GRAD</option></select>`; } else if (campoIndex === "15") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="SOLTERO/A">SOLTERO/A</option><option value="CASADO/A">CASADO/A</option><option value="DIVORCIADO/A">DIVORCIADO/A</option><option value="UNIÓN DE HECHO">UNIÓN DE HECHO</option></select>`; } else if (campoIndex === "24") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="NINGUNA">NINGUNA</option><option value="VIGENTE">VIGENTE</option><option value="FENECIDO">FENECIDO</option></select>`; } else if (campoIndex === "0") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="DINIC">DINIC</option><option value="UDAR">UDAR</option><option value="UNDECOF">UNDECOF</option><option value="UCAP">UCAP</option></select>`; } else if (campoIndex === "5") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="ZONA 1">ZONA 1</option><option value="ZONA 2">ZONA 2</option><option value="ZONA 3">ZONA 3</option><option value="ZONA 4">ZONA 4</option><option value="ZONA 5">ZONA 5</option><option value="ZONA 6">ZONA 6</option><option value="ZONA 7">ZONA 7</option><option value="ZONA 8">ZONA 8</option><option value="ZONA 9">ZONA 9</option></select>`; } else if (campoIndex === "28") { html += `<select id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;"><option value="DIRECTIVOS">DIRECTIVOS</option><option value="TÉCNICOS OPERATIVOS">TÉCNICOS OPERATIVOS</option></select>`; } else if (campoIndex === "22" || campoIndex === "23" || campoIndex === "29" || campoIndex === "36" || campoIndex === "37" || campoIndex === "38" || campoIndex === "41") { html += `<input type="date" id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px;">`; } else { html += `<input type="text" id="lote-val-final" style="width:100%; padding:10px; border: 1px solid #ccc; border-radius: 6px; text-transform: uppercase;">`; }
             cont.innerHTML = html;
         }
-
+	
        async function ejecutarLoteDefinitivo() {
             let campo = document.getElementById('lote-campo-select').value; if(!campo) return alert("Elige un campo a actualizar.");
             let valorInput = document.getElementById('lote-val-final'); if(!valorInput || valorInput.value === "") return alert("Ingresa el nuevo valor.");
             let valor = valorInput.type === "date" ? valorInput.value : valorInput.value.toUpperCase();
             if (valor === "NINGUNA" || valor === "") valor = " "; 
 
-            // CIRUGÍA: CAPTURAR LOS 6 CAMPOS SI ES LA NOVEDAD PRINCIPAL
+            // 🧠 CAPTURAR LOS CAMPOS SI ES LA NOVEDAD INTELIGENTE
             let valDetalle = " ", valDoc = " ", valFDesde = " ", valFHasta = " ", valReq = " ";
-            if(campo === "18") {
+            if(campo === "18_19") {
                 valDetalle = document.getElementById('lote-detalle').value.toUpperCase() || " ";
                 valDoc = document.getElementById('lote-documento').value.toUpperCase() || " ";
                 valFDesde = document.getElementById('lote-fecha-desde').value || " ";
@@ -1505,40 +1499,59 @@
             }
 
             let checkboxes = document.querySelectorAll('.checkbox-lote:checked');
-            if(!confirm(`Se actualizará el campo para ${checkboxes.length} servidores.\n¿Estás seguro de proceder?`)) return;
+            if(!confirm(`Se evaluará la actualización masiva para ${checkboxes.length} servidores.\n¿Estás seguro de proceder?`)) return;
             
             let btn = document.getElementById('btn-ejecutar-lote-final'); btn.innerText = "⏳ PROCESANDO..."; btn.disabled = true; 
             let userLog = localStorage.getItem('nombre') || localStorage.getItem('usuario_ci');
             
             let paquetesLote = [];
+            let omitidos = []; // 🛡️ Escudo
+
             for(let i=0; i<checkboxes.length; i++) { 
                 let idx = checkboxes[i].value; 
                 let reg = window.resTemp[idx]; 
                 let hr = reg.hojaOrigen; 
                 let d = reg.datosEncontrados; 
-                d[parseInt(campo)] = valor;
                 
-                // INYECTAMOS TODOS LOS DATOS EN LA MATRIZ
-                if(campo === "18") {
-                    d[20] = valDetalle;
-                    d[21] = valDoc;
-                    d[22] = valFDesde;
-                    d[23] = valFHasta;
-                    d[24] = valReq;
+                // 🧠 LÓGICA DE ESCANEO DE ESPACIOS
+                if(campo === "18_19") {
+                    let nov1Vacia = (!d[18] || d[18].trim() === "" || d[18] === "NINGUNA");
+                    let nov2Vacia = (!d[19] || d[19].trim() === "" || d[19] === "NINGUNA");
+
+                    if(nov1Vacia) {
+                        d[18] = valor; d[20] = valDetalle; d[21] = valDoc; d[22] = valFDesde; d[23] = valFHasta; d[24] = valReq;
+                        paquetesLote.push({ hoja: hr, fila: reg.filaReal, datos: d });
+                    } else if(nov2Vacia) {
+                        d[19] = valor; d[45] = valDetalle; d[46] = valDoc; d[47] = valFDesde; d[48] = valFHasta; d[49] = valReq;
+                        paquetesLote.push({ hoja: hr, fila: reg.filaReal, datos: d });
+                    } else {
+                        omitidos.push(d[4] + " (CI: " + d[2] + ")");
+                    }
+                } else {
+                    d[parseInt(campo)] = valor;
+                    paquetesLote.push({ hoja: hr, fila: reg.filaReal, datos: d });
                 }
-                paquetesLote.push({ hoja: hr, fila: reg.filaReal, datos: d });
             }
             
-            try { 
-                let res = await fetch(URL_APPS_SCRIPT, { method: 'POST', body: JSON.stringify({ accion: "actualizarLote", lotes: paquetesLote, usuario_logueado: userLog }) });
-                let r = await res.json();
-                if(r.status === "éxito") {
-                    alert(`✅ Lote completado ultrarrápido exitosamente.`); 
-                } else {
-                    alert("❌ Hubo un error en la actualización masiva.");
+            // EJECUCIÓN FINAL Y REPORTE AL USUARIO
+            if(paquetesLote.length > 0) {
+                try { 
+                    let res = await fetch(URL_APPS_SCRIPT, { method: 'POST', body: JSON.stringify({ accion: "actualizarLote", lotes: paquetesLote, usuario_logueado: userLog }) });
+                    let r = await res.json();
+                    if(r.status === "éxito") {
+                        let msjFinal = `✅ Lote completado exitosamente.\nSe actualizaron ${paquetesLote.length} registros.`;
+                        if(omitidos.length > 0) {
+                            msjFinal += `\n\n⚠️ SE OMITIERON ${omitidos.length} SERVIDORES porque ya tienen 2 novedades activas y no hay espacio:\n\n- ` + omitidos.join("\n- ") + "\n\nPor favor, edítelos manualmente usando el botón 'Editar'.";
+                        }
+                        alert(msjFinal); 
+                    } else {
+                        alert("❌ Hubo un error en la actualización masiva.");
+                    }
+                } catch(e) {
+                    alert("❌ Error de red al enviar el lote.");
                 }
-            } catch(e) {
-                alert("❌ Error de red al enviar el lote.");
+            } else {
+                alert(`⚠️ OPERACIÓN ABORTADA.\nNo se actualizó ningún registro.\n\nTodos los servidores seleccionados ya tienen sus 2 espacios de novedad ocupados:\n\n- ` + omitidos.join("\n- "));
             }
             
             btn.innerText = "Aplicar a Todos"; btn.disabled = false; cerrarModalLote(); 
