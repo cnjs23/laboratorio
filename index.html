@@ -576,7 +576,8 @@
 			
             <div id="modulo-generador" class="module hidden" style="padding:0; overflow:hidden; background:#1e1e1e;">
                 <style>
-                    #modulo-generador { display: flex; flex-direction: row; height: calc(100vh - 120px); color: #eee; }
+                    /* BLINDAJE VISUAL V61 */
+                    .gen-layout-wrapper { display: flex; flex-direction: row; height: calc(100vh - 120px); color: #eee; width: 100%; }
                     .gen-sidebar { width: 350px; background: #252526; display: flex; flex-direction: column; border-right: 1px solid #333; z-index: 10; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
                     .gen-tabs { display: flex; background: #333; }
                     .gen-tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #888; cursor: pointer; font-weight: bold; border-bottom: 3px solid transparent; font-size: 11px; }
@@ -599,65 +600,67 @@
                     .tool-btn { background: #3e3e42; color:white; border:1px solid #555; width:22px; height:22px; cursor:pointer;}
                 </style>
                 
-                <div class="gen-sidebar">
-                    <div style="background: linear-gradient(90deg, #003366, #00509e); padding: 10px; text-align: center;"><h2 style="margin:0; font-size:14px; color:white;">Generador V7.9</h2></div>
-                    <div class="gen-tabs">
-                        <button class="gen-tab-btn active" onclick="genSetTab('redaccion', this)">Redacción</button>
-                        <button class="gen-tab-btn" onclick="genSetTab('personal', this)">Personal</button>
-                        <button class="gen-tab-btn" onclick="genSetTab('diseno', this)">Diseño</button>
-                    </div>
-                    <div class="gen-content-area">
-                        <div id="gen-redaccion" class="gen-panel active">
-                            <div class="gen-group">
-                                <label>Tipo de Documento</label><select id="genDocType" onchange="genUpdateUI()"><option value="MEMORANDO">MEMORANDO</option><option value="OFICIO">OFICIO</option></select>
-                                <div style="display:flex; gap:5px; margin-top:5px;"><input type="number" id="genAnio" value="2026" oninput="genUpdateView()"><input type="number" id="genSec" value="48" oninput="genUpdateView()"></div>
-                                <label style="margin-top:5px;">Fecha</label><input type="text" id="genFecha" placeholder="Auto" oninput="genUpdateView()">
-                                <div id="genDivAsunto"><label style="margin-top:5px;">Asunto</label><input type="text" id="genAsunto" value="FELICITACION PRIVADA" oninput="genUpdateView()"></div>
+                <div class="gen-layout-wrapper">
+                    <div class="gen-sidebar">
+                        <div style="background: linear-gradient(90deg, #003366, #00509e); padding: 10px; text-align: center;"><h2 style="margin:0; font-size:14px; color:white;">Generador V7.9</h2></div>
+                        <div class="gen-tabs">
+                            <button class="gen-tab-btn active" onclick="genSetTab('redaccion', this)">Redacción</button>
+                            <button class="gen-tab-btn" onclick="genSetTab('personal', this)">Personal</button>
+                            <button class="gen-tab-btn" onclick="genSetTab('diseno', this)">Diseño</button>
+                        </div>
+                        <div class="gen-content-area">
+                            <div id="gen-redaccion" class="gen-panel active">
+                                <div class="gen-group">
+                                    <label>Tipo de Documento</label><select id="genDocType" onchange="genUpdateUI()"><option value="MEMORANDO">MEMORANDO</option><option value="OFICIO">OFICIO</option></select>
+                                    <div style="display:flex; gap:5px; margin-top:5px;"><input type="number" id="genAnio" value="2026" oninput="genUpdateView()"><input type="number" id="genSec" value="48" oninput="genUpdateView()"></div>
+                                    <label style="margin-top:5px;">Fecha</label><input type="text" id="genFecha" placeholder="Auto" oninput="genUpdateView()">
+                                    <div id="genDivAsunto"><label style="margin-top:5px;">Asunto</label><input type="text" id="genAsunto" value="FELICITACION PRIVADA" oninput="genUpdateView()"></div>
+                                </div>
+                                <div class="gen-group">
+                                    <label>Remitente (Conectado a BBDD)</label><select id="genSelRemitente" onchange="genHandleRemitente()"><option value="">Cargando Base de Datos...</option></select>
+                                    <div id="genDivManualRem" style="display:none;"><input type="text" id="genManGrado" placeholder="Grado"><input type="text" id="genManNombre" placeholder="Nombres"><input type="text" id="genManCargo" placeholder="Cargo"></div>
+                                    <label style="margin-top:5px;">Grado en Firma</label><select id="genSelGradoFirma" onchange="genUpdateView()"><option value="Coronel de Policía de E.M.">Coronel de Policía de E.M.</option><option value="Teniente de Policía">Teniente de Policía</option><option value="Capitán de Policía">Capitán de Policía</option></select>
+                                    <label style="margin-top:5px;">Elaborado Por</label><select id="genSelElaborador" onchange="genUpdateIniciales()"></select><input type="text" id="genIniciales" style="margin-top:5px;">
+                                </div>
+                                <div class="gen-group">
+                                    <label>Cuerpo del Texto</label>
+                                    <div style="border:1px solid #555;">
+                                        <div class="editor-toolbar"><button class="tool-btn" onclick="document.execCommand('bold')">B</button><button class="tool-btn" onclick="document.execCommand('italic')">I</button><button class="tool-btn" onclick="document.execCommand('underline')">U</button></div>
+                                        <div id="genVisualEditor" contenteditable="true" oninput="genUpdateView()" style="min-height:100px; padding:5px; font-size:12px;">Escriba aquí el documento...</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="gen-group">
-                                <label>Remitente (Conectado a BBDD)</label><select id="genSelRemitente" onchange="genHandleRemitente()"><option value="">Cargando Base de Datos...</option></select>
-                                <div id="genDivManualRem" style="display:none;"><input type="text" id="genManGrado" placeholder="Grado"><input type="text" id="genManNombre" placeholder="Nombres"><input type="text" id="genManCargo" placeholder="Cargo"></div>
-                                <label style="margin-top:5px;">Grado en Firma</label><select id="genSelGradoFirma" onchange="genUpdateView()"><option value="Coronel de Policía de E.M.">Coronel de Policía de E.M.</option><option value="Teniente de Policía">Teniente de Policía</option><option value="Capitán de Policía">Capitán de Policía</option></select>
-                                <label style="margin-top:5px;">Elaborado Por</label><select id="genSelElaborador" onchange="genUpdateIniciales()"></select><input type="text" id="genIniciales" style="margin-top:5px;">
+                            <div id="gen-personal" class="gen-panel">
+                                <div class="gen-group"><label>Seleccionar Destinatarios (<span id="gen-lbl-status">Cargando...</span>)</label>
+                                    <div style="margin-bottom:5px;"><span style="color:#00acc1; cursor:pointer; font-size:11px;" onclick="genToggleAll(true)">Marcar Todos</span> | <span style="color:#00acc1; cursor:pointer; font-size:11px;" onclick="genToggleAll(false)">Desmarcar Todos</span></div>
+                                    <div id="genCheckList" style="max-height:300px; overflow-y:auto; border:1px solid #555; padding:5px;"></div>
+                                </div>
                             </div>
-                            <div class="gen-group">
-                                <label>Cuerpo del Texto</label>
-                                <div style="border:1px solid #555;">
-                                    <div class="editor-toolbar"><button class="tool-btn" onclick="document.execCommand('bold')">B</button><button class="tool-btn" onclick="document.execCommand('italic')">I</button><button class="tool-btn" onclick="document.execCommand('underline')">U</button></div>
-                                    <div id="genVisualEditor" contenteditable="true" oninput="genUpdateView()" style="min-height:100px; padding:5px; font-size:12px;">Escriba aquí el documento...</div>
+                            <div id="gen-diseno" class="gen-panel">
+                                <div class="gen-group">
+                                    <label>Margen Nomenclatura a Fecha</label><input type="range" id="gRNom" min="0" max="40" value="0" oninput="genUpdateSpacing()">
+                                    <label>Margen Fecha a Destinatario</label><input type="range" id="gRMeta" min="5" max="80" value="25" oninput="genUpdateSpacing()">
+                                    <label>Margen Texto a Firma</label><input type="range" id="gRFirm" min="10" max="100" value="40" oninput="genUpdateSpacing()">
                                 </div>
                             </div>
                         </div>
-                        <div id="gen-personal" class="gen-panel">
-                            <div class="gen-group"><label>Seleccionar Destinatarios (<span id="gen-lbl-status">Cargando...</span>)</label>
-                                <div style="margin-bottom:5px;"><span style="color:#00acc1; cursor:pointer; font-size:11px;" onclick="genToggleAll(true)">Marcar Todos</span> | <span style="color:#00acc1; cursor:pointer; font-size:11px;" onclick="genToggleAll(false)">Desmarcar Todos</span></div>
-                                <div id="genCheckList" style="max-height:300px; overflow-y:auto; border:1px solid #555; padding:5px;"></div>
-                            </div>
-                        </div>
-                        <div id="gen-diseno" class="gen-panel">
-                            <div class="gen-group">
-                                <label>Margen Nomenclatura a Fecha</label><input type="range" id="gRNom" min="0" max="40" value="0" oninput="genUpdateSpacing()">
-                                <label>Margen Fecha a Destinatario</label><input type="range" id="gRMeta" min="5" max="80" value="25" oninput="genUpdateSpacing()">
-                                <label>Margen Texto a Firma</label><input type="range" id="gRFirm" min="10" max="100" value="40" oninput="genUpdateSpacing()">
-                            </div>
-                        </div>
+                        <div style="display:flex; gap:10px; padding:10px; background:#252526;"><button class="gen-btn-blue" style="flex:1;" onclick="genPDF(false)">VISTA PREVIA</button><button class="gen-btn-cyan" style="flex:1;" onclick="genPDF(true)">ZIP TODOS</button></div>
                     </div>
-                    <div style="display:flex; gap:10px; padding:10px; background:#252526;"><button class="gen-btn-blue" style="flex:1;" onclick="genPDF(false)">VISTA PREVIA</button><button class="gen-btn-cyan" style="flex:1;" onclick="genPDF(true)">ZIP TODOS</button></div>
-                </div>
-                
-                <div class="gen-preview-wrapper">
-                    <div id="hoja-a4">
-                        <div style="height:3.2cm; border-bottom:1px dashed #ccc; text-align:center; font-size:10px; color:#aaa; line-height:3.2cm;">ESPACIO ENCABEZADO MEMBRETE</div>
-                        <div class="main-content-a4">
-                            <div class="meta-data-a4"><div style="margin-bottom: var(--margin-nom-date);"><span id="vDocType">Memorando</span> Nro. PN-DINIC-<span id="vAnio">2026</span>-<span id="vSec">0048</span>-<span id="vSuf">M</span></div><div id="vFecha">Quito, DM...</div></div>
-                            <div class="block-destinatario-a4" id="vDest"></div>
-                            <div class="body-text-a4" id="vCuerpo"></div>
-                            <div class="firma-section-a4">
-                                <div><div style="margin-bottom:30px;">Atentamente,<br><b>VALOR, DISCIPLINA Y LEALTAD</b></div><div id="vFirmaNom" style="margin-bottom:2px;">Nombre</div><div id="vFirmaGrado">Grado</div><div id="vFirmaCargo" style="font-weight:bold; font-size:10pt;">CARGO</div><div id="vInit" style="font-size:8pt; margin-top:5px; font-weight:normal;">XXX/xxx</div></div>
-                                <div style="width:3.5cm; height:2.5cm; border:1px dashed #ccc; font-size:10px; color:#aaa; display:flex; align-items:center; justify-content:center;">ESCUDO</div>
+                    
+                    <div class="gen-preview-wrapper">
+                        <div id="hoja-a4">
+                            <div style="height:3.2cm; border-bottom:1px dashed #ccc; text-align:center; font-size:10px; color:#aaa; line-height:3.2cm;">ESPACIO ENCABEZADO MEMBRETE</div>
+                            <div class="main-content-a4">
+                                <div class="meta-data-a4"><div style="margin-bottom: var(--margin-nom-date);"><span id="vDocType">Memorando</span> Nro. PN-DINIC-<span id="vAnio">2026</span>-<span id="vSec">0048</span>-<span id="vSuf">M</span></div><div id="vFecha">Quito, DM...</div></div>
+                                <div class="block-destinatario-a4" id="vDest"></div>
+                                <div class="body-text-a4" id="vCuerpo"></div>
+                                <div class="firma-section-a4">
+                                    <div><div style="margin-bottom:30px;">Atentamente,<br><b>VALOR, DISCIPLINA Y LEALTAD</b></div><div id="vFirmaNom" style="margin-bottom:2px;">Nombre</div><div id="vFirmaGrado">Grado</div><div id="vFirmaCargo" style="font-weight:bold; font-size:10pt;">CARGO</div><div id="vInit" style="font-size:8pt; margin-top:5px; font-weight:normal;">XXX/xxx</div></div>
+                                    <div style="width:3.5cm; height:2.5cm; border:1px dashed #ccc; font-size:10px; color:#aaa; display:flex; align-items:center; justify-content:center;">ESCUDO</div>
+                                </div>
                             </div>
+                            <div style="height:2.8cm; border-top:1px dashed #ccc; text-align:center; font-size:10px; color:#aaa; line-height:2.8cm; margin-top:auto;">ESPACIO PIE DE PÁGINA</div>
                         </div>
-                        <div style="height:2.8cm; border-top:1px dashed #ccc; text-align:center; font-size:10px; color:#aaa; line-height:2.8cm; margin-top:auto;">ESPACIO PIE DE PÁGINA</div>
                     </div>
                 </div>
 
@@ -673,7 +676,7 @@
                                 document.getElementById('gen-lbl-status').innerText = r.personal.length + " Servidores";
                                 renderListsGen(); genUpdateFecha(); genUpdateView();
                             }
-                        });
+                        }).catch(e => console.error("Error BD:", e));
                     }
                     function renderListsGen() {
                         const checkList = document.getElementById('genCheckList');
