@@ -243,8 +243,8 @@
                         <div class="icon-large" style="color:#3498db;">📊</div><h3 style="color:#3498db;">Dashboard</h3><p>Visualización de indicadores y estadísticas</p>
                     </div>
 					<div class="welcome-card mod-gen hidden" style="border-color:#00838f;" onclick="document.querySelector('.mod-gen').click()">
-                        <div class="icon-large" style="color:#00838f;">📄</div><h3 style="color:#00838f;">Generador</h3><p>Emisión de Documentos y Oficios</p>
-                    </div>
+    <div class="icon-large" style="color:#00838f;">📄</div><h3 style="color:#00838f;">Generador</h3><p>Emisión de Documentos y Oficios</p>
+</div>
                     <div id="card-admin" class="welcome-card mod-admin hidden" style="border-color:var(--danger-color);" onclick="document.getElementById('nav-btn-admin').click()">
                         <div class="icon-large">🔒</div><h3 style="color:var(--danger-color);">Súper Admin</h3><p>Gestión de roles, auditoría y mensajería</p>
                     </div>
@@ -573,8 +573,8 @@
                     </div>
                 </div>
             </div>
-
-			<div id="modulo-generador" class="module" style="padding:0; overflow:hidden; background:#1e1e1e;">
+			
+            <div id="modulo-generador" class="module" style="padding:0; overflow:hidden; background:#1e1e1e;">
                 <style>
                     #modulo-generador { display: flex; flex-direction: row; height: calc(100vh - 120px); color: #eee; }
                     .gen-sidebar { width: 350px; background: #252526; display: flex; flex-direction: column; border-right: 1px solid #333; z-index: 10; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
@@ -624,7 +624,7 @@
                                 <label>Cuerpo del Texto</label>
                                 <div style="border:1px solid #555;">
                                     <div class="editor-toolbar"><button class="tool-btn" onclick="document.execCommand('bold')">B</button><button class="tool-btn" onclick="document.execCommand('italic')">I</button><button class="tool-btn" onclick="document.execCommand('underline')">U</button></div>
-                                    <div id="genVisualEditor" contenteditable="true" oninput="genUpdateView()" style="min-height:100px; padding:5px; font-size:12px;">Sobre la base y de conformidad a la recomendación...</div>
+                                    <div id="genVisualEditor" contenteditable="true" oninput="genUpdateView()" style="min-height:100px; padding:5px; font-size:12px;">Escriba aquí el documento...</div>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +649,7 @@
                     <div id="hoja-a4">
                         <div style="height:3.2cm; border-bottom:1px dashed #ccc; text-align:center; font-size:10px; color:#aaa; line-height:3.2cm;">ESPACIO ENCABEZADO MEMBRETE</div>
                         <div class="main-content-a4">
-                            <div class="meta-data-a4"><div style="margin-bottom: var(--margin-nom-date);"><span id="vDocType">Memorando</span> Nro. PN-DINIC-TH-<span id="vAnio">2026</span>-<span id="vSec">0048</span>-<span id="vSuf">M</span></div><div id="vFecha">Quito, DM...</div></div>
+                            <div class="meta-data-a4"><div style="margin-bottom: var(--margin-nom-date);"><span id="vDocType">Memorando</span> Nro. PN-DINIC-<span id="vAnio">2026</span>-<span id="vSec">0048</span>-<span id="vSuf">M</span></div><div id="vFecha">Quito, DM...</div></div>
                             <div class="block-destinatario-a4" id="vDest"></div>
                             <div class="body-text-a4" id="vCuerpo"></div>
                             <div class="firma-section-a4">
@@ -663,7 +663,6 @@
 
                 <script>
                     let personalGen = [];
-                    
                     function cargarPersonalGenerador() {
                         let uniPermitida = localStorage.getItem('unidad') || "TODAS";
                         document.getElementById('gen-lbl-status').innerText = "Extrayendo BD...";
@@ -676,62 +675,27 @@
                             }
                         });
                     }
-
                     function renderListsGen() {
                         const checkList = document.getElementById('genCheckList');
                         const selRem = document.getElementById('genSelRemitente');
                         const selEla = document.getElementById('genSelElaborador');
-                        
                         checkList.innerHTML = '';
                         selRem.innerHTML = '<option value="">-- Seleccionar Base de Datos --</option><option value="MANUAL">OTRO (Escribir Manual)</option>';
                         selEla.innerHTML = '<option value="">-- Seleccionar Elaborador --</option>';
-
                         personalGen.forEach((p, i) => {
                             checkList.innerHTML += `<div style="display:flex; align-items:center; padding:4px; border-bottom:1px solid #333; font-size:11px;"><input type="checkbox" class="chk-dest-gen" value="${i}" onchange="genUpdateView()"> ${p.grado} ${p.nombre}</div>`;
                             selRem.innerHTML += `<option value="${i}">${p.grado} ${p.nombre}</option>`;
                             selEla.innerHTML += `<option value="${i}">${p.grado} ${p.nombre}</option>`;
                         });
                     }
-
-                    function genSetTab(id, btn) {
-                        document.querySelectorAll('.gen-panel').forEach(p => p.classList.remove('active'));
-                        document.querySelectorAll('.gen-tab-btn').forEach(b => b.classList.remove('active'));
-                        document.getElementById('gen-' + id).classList.add('active'); btn.classList.add('active');
-                    }
-
-                    function genUpdateFecha() {
-                        const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-                        let d = new Date();
-                        document.getElementById('genFecha').value = `Quito, D.M., ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
-                    }
-
-                    function genHandleRemitente() {
-                        const val = document.getElementById('genSelRemitente').value;
-                        document.getElementById('genDivManualRem').style.display = (val === 'MANUAL') ? 'block' : 'none';
-                        genUpdateView();
-                    }
-
-                    function genUpdateIniciales() {
-                        const val = document.getElementById('genSelElaborador').value;
-                        if(val && val !== "MANUAL") {
-                            let n = personalGen[val].nombre.split(" ");
-                            let inits = n.map(x => x.charAt(0)).join("");
-                            document.getElementById('genIniciales').value = inits + "/";
-                        }
-                        genUpdateView();
-                    }
-
+                    function genSetTab(id, btn) { document.querySelectorAll('.gen-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.gen-tab-btn').forEach(b => b.classList.remove('active')); document.getElementById('gen-' + id).classList.add('active'); btn.classList.add('active'); }
+                    function genUpdateFecha() { const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]; let d = new Date(); document.getElementById('genFecha').value = `Quito, D.M., ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`; }
+                    function genHandleRemitente() { document.getElementById('genDivManualRem').style.display = (document.getElementById('genSelRemitente').value === 'MANUAL') ? 'block' : 'none'; genUpdateView(); }
+                    function genUpdateIniciales() { const val = document.getElementById('genSelElaborador').value; if(val && val !== "MANUAL") { let n = personalGen[val].nombre.split(" "); document.getElementById('genIniciales').value = n.map(x => x.charAt(0)).join("") + "/"; } genUpdateView(); }
                     function genToggleAll(st) { document.querySelectorAll('.chk-dest-gen').forEach(c => c.checked = st); genUpdateView(); }
-                    
-                    function genUpdateSpacing() {
-                        let h = document.getElementById('hoja-a4');
-                        h.style.setProperty('--margin-nom-date', document.getElementById('gRNom').value + 'px');
-                        h.style.setProperty('--margin-meta', document.getElementById('gRMeta').value + 'px');
-                        h.style.setProperty('--margin-firm', document.getElementById('gRFirm').value + 'px');
-                    }
-
+                    function genUpdateSpacing() { let h = document.getElementById('hoja-a4'); h.style.setProperty('--margin-nom-date', document.getElementById('gRNom').value + 'px'); h.style.setProperty('--margin-meta', document.getElementById('gRMeta').value + 'px'); h.style.setProperty('--margin-firm', document.getElementById('gRFirm').value + 'px'); }
                     function cleanNameGen(n) { return n.split(" ").map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase()).join(" "); }
-
+                    function genUpdateUI() { let type = document.getElementById('genDocType').value; document.getElementById('genDivAsunto').style.display = (type === "MEMORANDO") ? "block" : "none"; genUpdateView(); }
                     function genUpdateView() {
                         let type = document.getElementById('genDocType').value;
                         document.getElementById('vDocType').innerText = (type === "MEMORANDO") ? "Memorando" : "Oficio";
@@ -741,20 +705,14 @@
                         document.getElementById('vFecha').innerText = document.getElementById('genFecha').value;
                         document.getElementById('vCuerpo').innerHTML = document.getElementById('genVisualEditor').innerHTML;
                         document.getElementById('vInit').innerText = document.getElementById('genIniciales').value;
-
-                        // Destinatario Preview (Muestra el primero seleccionado)
                         let chks = document.querySelectorAll('.chk-dest-gen:checked');
                         let htmlDest = "";
                         if(chks.length > 0) {
                             let p = personalGen[chks[0].value];
                             htmlDest = `<div style="display:flex;"><div style="font-weight:bold; width:2.5cm;">PARA:</div><div><span style="font-weight:bold;">Sr. ${p.grado}</span><br>${cleanNameGen(p.nombre)}<br><span style="font-weight:bold;">${p.cargo}</span></div></div>`;
                             if(type==="MEMORANDO") htmlDest += `<div style="display:flex; margin-top:8px;"><div style="font-weight:bold; width:2.5cm;">ASUNTO:</div><div>${document.getElementById('genAsunto').value}</div></div>`;
-                        } else {
-                            htmlDest = "<i style='color:#ccc;'>Seleccione destinatarios...</i>";
-                        }
+                        } else { htmlDest = "<i style='color:#ccc;'>Seleccione destinatarios...</i>"; }
                         document.getElementById('vDest').innerHTML = htmlDest;
-
-                        // Remitente Preview
                         let rVal = document.getElementById('genSelRemitente').value;
                         if(rVal === "MANUAL") {
                             document.getElementById('vFirmaNom').innerText = cleanNameGen(document.getElementById('genManNombre').value);
@@ -766,33 +724,21 @@
                         }
                         document.getElementById('vFirmaGrado').innerText = document.getElementById('genSelGradoFirma').value;
                     }
-
                     async function genPDF(isZip) {
                         let chks = document.querySelectorAll('.chk-dest-gen:checked');
                         if(chks.length === 0) return alert("Seleccione al menos un destinatario");
-                        
                         const element = document.getElementById('hoja-a4');
                         const opt = { margin: 0, filename: 'Documento.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
-                        
-                        if(!isZip) {
-                            html2pdf().set(opt).from(element).save();
-                        } else {
-                            if(!confirm(`¿Generar ${chks.length} documentos?`)) return;
-                            const zip = new JSZip();
-                            let secBase = parseInt(document.getElementById('genSec').value);
-                            let anio = document.getElementById('genAnio').value;
-                            
+                        if(!isZip) { html2pdf().set(opt).from(element).save(); } else {
+                            if(!confirm(`¿Generar ${chks.length} documentos en ZIP?`)) return;
+                            const zip = new JSZip(); let secBase = parseInt(document.getElementById('genSec').value);
                             for(let i=0; i<chks.length; i++) {
                                 let p = personalGen[chks[i].value];
-                                // Inyectar destinatario
                                 let htmlDest = `<div style="display:flex;"><div style="font-weight:bold; width:2.5cm;">PARA:</div><div><span style="font-weight:bold;">Sr. ${p.grado}</span><br>${cleanNameGen(p.nombre)}<br><span style="font-weight:bold;">${p.cargo}</span></div></div>`;
                                 if(document.getElementById('genDocType').value === "MEMORANDO") htmlDest += `<div style="display:flex; margin-top:8px;"><div style="font-weight:bold; width:2.5cm;">ASUNTO:</div><div>${document.getElementById('genAsunto').value}</div></div>`;
                                 document.getElementById('vDest').innerHTML = htmlDest;
-                                
-                                let s = (secBase + i).toString().padStart(4,'0');
-                                document.getElementById('vSec').innerText = s;
-                                
-                                await new Promise(r => setTimeout(r, 150)); // Render wait
+                                let s = (secBase + i).toString().padStart(4,'0'); document.getElementById('vSec').innerText = s;
+                                await new Promise(r => setTimeout(r, 150));
                                 const blob = await html2pdf().set(opt).from(element).toPdf().get('pdf').then(doc => doc.output('blob'));
                                 zip.file(`Documento_${s}_${p.grado}_${p.nombre.substring(0,10)}.pdf`, blob);
                             }
@@ -994,7 +940,7 @@
 
     <footer><strong>GESTOR DE TALENTO HUMANO DINIC</strong> | Soporte Técnico y Desarrollo<br>👤 John Stalin Carrillo Narvaez | ✉️ cnjstalin@gmail.com</footer>
 <script>
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbyVKyPOYATnw5fSlYfLXkChyZXKDGwKw9xFL90L1kF4UacwEQfOe9dnPkj3BbO-rjjw/exec";
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzAEBYnW_v7KsK5a2F1wO-L958sS6jSHCRkGkmVRjZL7Aq-I9lRcpLNnLkFaxzb5gSf/exec";
 	// 🛡️ INTERCEPTOR DE SEGURIDAD GLOBAL (MODO CHECKPOINT V61)
         const originalFetch = window.fetch;
         window.fetch = async function() {
@@ -1143,27 +1089,41 @@
         };
 
         function configurarInterfazPorRol(rol) {
-            document.querySelectorAll('.mod-write').forEach(el => el.classList.add('hidden')); document.getElementById('nav-btn-admin').classList.add('hidden'); document.getElementById('card-admin').classList.add('hidden'); document.getElementById('btn-mensajes').classList.remove('hidden'); document.getElementById('btn-lista-export').classList.remove('hidden'); 
+            document.querySelectorAll('.mod-write').forEach(el => el.classList.add('hidden')); 
+            document.querySelectorAll('.mod-gen').forEach(el => el.classList.add('hidden')); // Ocultar Generador por defecto
+            document.getElementById('nav-btn-admin').classList.add('hidden'); 
+            document.getElementById('card-admin').classList.add('hidden'); 
+            document.getElementById('btn-mensajes').classList.remove('hidden');
+            document.getElementById('btn-lista-export').classList.remove('hidden'); 
             let navDash = document.getElementById('nav-dash'), cardDash = document.getElementById('card-dash'), tabAlertas = document.getElementById('tab-alertas');
-            if(navDash) navDash.classList.remove('hidden'); if(cardDash) cardDash.style.display = "block"; if(tabAlertas) tabAlertas.style.display = "inline-block";
+            if(navDash) navDash.classList.remove('hidden'); if(cardDash) cardDash.style.display = "block";
+            if(tabAlertas) tabAlertas.style.display = "inline-block";
+
+            // 🛡️ Lógica de Visibilidad del Generador
+            if (["ADMIN", "ANALISTA DINIC", "ASISTENTE DINIC", "ANALISTA UNIDAD"].includes(rol)) {
+                document.querySelectorAll('.mod-gen').forEach(el => el.classList.remove('hidden'));
+                if(typeof cargarPersonalGenerador === 'function') cargarPersonalGenerador(); // Iniciar extracción
+            }
 
             if (rol === "ADMIN") {
-                document.querySelectorAll('.mod-write').forEach(el => el.classList.remove('hidden')); document.getElementById('nav-btn-admin').classList.remove('hidden'); document.getElementById('card-admin').classList.remove('hidden');
+                document.querySelectorAll('.mod-write').forEach(el => el.classList.remove('hidden'));
+                document.getElementById('nav-btn-admin').classList.remove('hidden'); document.getElementById('card-admin').classList.remove('hidden');
                 loadUsersTable(); cargarAuditoria(); cargarConfigWP(); renderNovedadesAdmin(); renderConfigOrganicoAdmin(); 
             } else if (rol === "ANALISTA DINIC" || rol === "ASISTENTE DINIC" || rol === "ANALISTA UNIDAD") {
                 document.querySelectorAll('.mod-write').forEach(el => el.classList.remove('hidden'));
             } else if (rol === "ANALISTA AGENCIA") {
                 document.querySelectorAll('.mod-write').forEach(el => el.classList.remove('hidden'));
-                // 🔒 MAGIA: Ocultamos los botones y tarjetas específicos de "AGREGAR NUEVO"
-                document.querySelectorAll('.nav-btn')[3].classList.add('hidden'); 
+                document.querySelectorAll('.nav-btn')[3].classList.add('hidden');
                 document.querySelectorAll('.welcome-card')[2].classList.add('hidden');
             } else if (rol === "VISITANTE SENIOR" || rol === "VISITANTE UNIDAD") {
             } else if (rol === "VISITANTE DINIC" || rol === "VISITANTE JUNIOR") {
                 document.querySelectorAll('.nav-btn').forEach((el, i) => { if(i !== 0 && i !== 1) el.style.display = 'none'; });
                 document.querySelectorAll('.welcome-card').forEach((el, i) => { if(i !== 0) el.style.display = 'none'; });
-                if(navDash) navDash.classList.add('hidden'); if(cardDash) cardDash.style.display = "none"; if(tabAlertas) tabAlertas.style.display = "none";
+                if(navDash) navDash.classList.add('hidden'); if(cardDash) cardDash.style.display = "none";
+                if(tabAlertas) tabAlertas.style.display = "none";
             }
 		}
+	
         async function hacerLogin(btn) {
             let user = document.getElementById('login-user').value.trim(), pass = document.getElementById('login-pass').value.trim();
             if(!user || !pass) return alert("Ingrese sus datos"); btn.innerText = "VERIFICANDO..."; btn.style.backgroundColor = "#95a5a6";
